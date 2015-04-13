@@ -44,9 +44,44 @@ class Basecamp():
         except Exception as e:
             print('Error de conexion', e)
 
-    def projects_list(self):
+    def projects(self):
         """
-        Devuelve una lista de todos los proyectos activos
+        Invoques from the API a list of all active projects and a detailed
+        report of every project, and returns the context of that.
+
+        Available API Calls:
+
+            /projects.json returns  all active projects.
+            /projects/drafts.json returns all draft projects.
+            /projects/archived.json returns all archived projects.
+            /projects/1.json returns a detailed report of the specified project.
         """
         path = 'projects.json'
         return self.set_connection(path)
+
+    """
+    Listado de funcionalidades del API a implementar:
+
+    Projects
+    /projects.json will return all active projects.
+    /projects/drafts.json will return all draft projects.
+    /projects/archived.json will return all archived projects.
+    /projects/1.json will return the specified project.
+
+    Project Templates
+    Stars
+    People
+    Accesses
+    Companies/Groups
+    Events
+    Topics
+    Messages
+    Comments
+    Todo lists
+    Todos
+    Documents
+    Attachments
+    Uploads
+    Calendars
+    Calendar events
+    """
