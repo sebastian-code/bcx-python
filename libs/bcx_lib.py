@@ -42,9 +42,9 @@ class Basecamp():
                                 auth=self.auth)
 
         except Exception as e:
-            print('Error de conexion', e)
+            print('Error de conexion\n', e)
 
-    def projects(self):
+    def list_projects(self):
         """
         Invoques from the API a list of all active projects and a detailed
         report of every project, and returns the context of that.
@@ -56,17 +56,20 @@ class Basecamp():
             /projects/archived.json returns all archived projects.
             /projects/1.json returns a detailed report of the specified project.
         """
-        path = 'projects.json'
-        return self.set_connection(path)
+        # path = 'projects.json'
+        # return self.set_connection(path)
+        r = self.set_connection('projects.json')
+        list_data = r.json()
+        li = [u['id'] for u in list_data]
+        detail_data = self.detailed_projects(li[0])
+        # detail_data = [self.detailed_projects(x) for x in li]
+        return list_data, detail_data
+
+    def detailed_projects(self, proj_id):
+        return self.set_connection('projects/{0}.json'.format('proj_id'))
 
     """
     Listado de funcionalidades del API a implementar:
-
-    Projects
-    /projects.json will return all active projects.
-    /projects/drafts.json will return all draft projects.
-    /projects/archived.json will return all archived projects.
-    /projects/1.json will return the specified project.
 
     Project Templates
     Stars
