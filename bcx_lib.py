@@ -8,12 +8,15 @@ Created on 2015-04-12
                    creado con la finalidad de extraer toda la informacion
                    disponible para la cuenta suministrada, con fines de crear
                    reportes directamente en excel.
+@disclaimer: Este cliente trabaja con autenticacion basica http, por lo que solo
+                    es recomendado para uso personal, bajo condiciones de
+                    control del ambiente de trabajo, donde no haya riesgo a
+                    perdidas de informacion.
 @author: Sebastian Reyes Espinosa
 @contact: sebaslander@gmail.com
 """
 
-from base64 import b64encode
-import sys
+import requests
 
 __author__ = 'Sebastian Reyes Espinosa'
 __email__ = 'sebaslander@gmail.com'
@@ -29,50 +32,21 @@ class Basecamp():
         self.username = username
         self.password = password
         self.company = company
-        self.header_content = {
-            'Authorization': self.create_basic_auth(),
-            'User-Agent': '{0}:({1})'.format(company, username)
-            }
+        self.headers = {'User-Agent': '{0}:({1})'.format(company, username)}
+        self.auth = (username, password)
 
-    def create_basic_auth(self):
+    def set_connection(self, path):
+        mod_url = self.base_url + path
+        try:
+            return requests.get(mod_url, headers=self.headers,
+                                auth=self.auth)
 
+        except Exception as e:
+            print('Error de conexion', e)
+
+    def projects_list(self):
         """
-        Crea un encabezamiento basico de autenticacion para el API
-        We don't want to suffer because Python3's strictness about strings
+        Devuelve una lista de todos los proyectos activos
         """
-
-        if sys.version_info >= (3, 0):
-            if not isinstance(self.username, str):
-                self.username = self.username.decode('utf-8')
-
-            if not isinstance(self.password, str):
-                self.password = self.password.decode('utf-8')
-
-            return 'Basic ' + b64encode((self.username + ":" + self.password).encode('utf-8')).decode('utf-8')
-
-        else:
-            return 'Basic ' + b64encode(self.username + ":" + self.password).rstrip()
-
-    def _request(self, path, data=None):
-        # TODO
-        # Crear funcion central para gestion de direccionamiento compatible con
-        # API de BaseCamp
-        pass
-
-    def test_connection():
-        """
-        Metodo concebido con la finalidad de validar la conexion a Basecamp
-        """
-        pass
-
-    def company(self, company_id):
-        pass
-        """
-        Modelo/sugerencia de como definir los metodos de la clase para
-        interactuar con el API. En el ejemplo, el metodo busca recuperar la
-        informacion de la compañia, si existe
-
-        path = '/contacts/company/%u' % company_id
-        return self._request(path)
-
-        """
+        path = 'projects.json'
+        return self.set_connection(path)
