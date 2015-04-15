@@ -42,30 +42,49 @@ class Basecamp():
         except Exception as e:
             print('Error de conexion\n', e)
 
-    def query_projects(self):
+    def query_projects(self, arg):
         """
-        Invoques from the API a list of all active projects into the platform
+        Invoques from the API a list of all projects into the platform and
+        returns the context in a JSON file, accordingly to the selected option:
+
+        API Calls implemented:
+
+            /projects.json returns all active projects.
+            /projects/drafts.json returns all draft projects.
+            /projects/archived.json returns all archived projects.
+
+        @requires: arg - INT type value. Values: 1, 2, 3
+        @returns: JSON object
+        """
+        if arg == 1:
+            # returns all active projects
+            return self.set_connection('projects.json').json()
+
+        elif arg == 2:
+            # returns all draft projects.
+            return self.set_connection('/projects/drafts.json').json()
+
+        elif arg == 3:
+            return self.set_connection('/projects/archived.json').json()
+
+        else:
+            # returns all archived projects
+            raise ValueError("The wrong option has been recieved!")
+
+    def detailed_project(self, proj_id):
+        """
+        Invoques from the API the detail of the proj_id provided to the client
         and returns the context in a JSON file.
 
         API Calls implemented:
 
-            /projects.json
+            /projects/1.json returns a detailed report of the specified project
 
+        @requires: arg - INT type value equal to the 'id' identifier.
+        @returns: JSON object
         """
 
-        r = self.set_connection('projects.json')
-        return r.json()
-
-        # li = [u['id'] for u in list_data]
-        # detail_data = self.detailed_projects(li[0])
-        # detail_data = [self.detailed_projects(x) for x in li]
-        # return list_data, detail_data
-
-    def detailed_projects(self, proj_id):
-        # /projects/1.json returns a detailed report of the specified project
-        # where 1 equals to the id of the project.
-
-        return self.set_connection('projects/{0}.json'.format('proj_id'))
+        return self.set_connection('projects/{0}.json'.format(proj_id)).json()
 
     """
     #TODO
