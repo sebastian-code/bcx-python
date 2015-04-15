@@ -95,7 +95,6 @@ class Basecamp():
         API Calls implemented:
 
             /people.json will return all people on the account.
-            /people/me.json will return the current person.
             /people/trashed.json will return all people who have been deleted
                 from the account. Only admins are able to access trashed people.
 
@@ -107,10 +106,6 @@ class Basecamp():
             return self.set_connection('people.json').json()
 
         elif arg == 2:
-            # returns the current person
-            return self.set_connection('people/me.json').json()
-
-        elif arg == 3:
             # returns all trashed people from the account
             return self.set_connection('people/trashed.json').json()
 
@@ -126,6 +121,8 @@ class Basecamp():
         API Calls implemented:
 
             /people/1.json returns the specified person.
+            /people/me.json will return the current person but is not in use
+                in here because it's the same than the previous one.
             /people/1/projects.json returns a list of all projects the
                 specified person has access to, including draft, template,
                 archived, and deleted projects. Projects that the requesting
