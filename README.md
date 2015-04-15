@@ -11,17 +11,18 @@ bcx-python is a console client wrapper for the APIREST from from [Basecamp](http
 Until now I only implemented the following calls:
 
 [projects](https://github.com/basecamp/bcx-api/blob/master/sections/projects.md)
+[people](https://github.com/basecamp/bcx-api/blob/master/sections/people.md)
 
 ## TODO's
 -----
 
 * Implement CLI-Interface through a nice command line client.
 * Create documentation - maybe
+* Implement a better exception handling for the requests.
 * Implement the following API calls:
 ```
 Project Templates
 Stars
-People
 Accesses
 Companies/Groups
 Events
