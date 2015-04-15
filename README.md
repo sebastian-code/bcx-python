@@ -18,7 +18,8 @@ Until now I only implemented the following calls:
 * Implement CLI-Interface through a nice command line client.
 * Create documentation - maybe
 * Implement the following API calls:
-'''Project Templates
+```
+Project Templates
 Stars
 People
 Accesses
@@ -34,4 +35,4 @@ Attachments
 Uploads
 Calendars
 Calendar events
-'''
+```
