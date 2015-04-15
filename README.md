@@ -12,28 +12,27 @@ Until now I only implemented the following calls:
 
 [projects](https://github.com/basecamp/bcx-api/blob/master/sections/projects.md)
 
-Todos
+## TODO's
 -----
 
-*  Implement CLI-Interface through a nice command line client.
-*  Create documentation (perhaps)
-*  Implement the following API calls:
-
-        Project Templates
-        Stars
-        People
-        Accesses
-        Companies/Groups
-        Events
-        Topics
-        Messages
-        Comments
-        Todo lists
-        Todos
-        Documents
-        Attachments
-        Uploads
-        Calendars
-        Calendar events
+* Implement CLI-Interface through a nice command line client.
+* Create documentation - maybe
+* Implement the following API calls:
+    Project Templates
+    Stars
+    People
+    Accesses
+    Companies/Groups
+    Events
+    Topics
+    Messages
+    Comments
+    Todo lists
+    Todos
+    Documents
+    Attachments
+    Uploads
+    Calendars
+    Calendar events
 
 *  lots and lots more
