@@ -2,16 +2,14 @@
 
 """
 Created on 2015-04-12
-@note: Compatible con Python3
-@summary: Cliente para extraccion de informacion de una cuenta de BaseCamp
-                   Este cliente unicamente ejecuta accesos de lectura, y esta
-                   creado con la finalidad de extraer toda la informacion
-                   disponible para la cuenta suministrada, con fines de crear
-                   reportes directamente en excel.
-@disclaimer: Este cliente trabaja con autenticacion basica http, por lo que solo
-                    es recomendado para uso personal, bajo condiciones de
-                    control del ambiente de trabajo, donde no haya riesgo a
-                    perdidas de informacion.
+@requires: Python 3.4+
+@summary:   Basecamp command line main lib to query the service API.
+            This library does not implement CRUD with the API, it only makes
+            GET calls.
+@note:		This client works with basic authentication, the OAuth
+            authentication is not implemented, mainly due to my interest in a
+            tool that allows me to extract information to create my own
+            dashboard and reporting tool, because basecamp has none.
 @author: Sebastian Reyes Espinosa
 @contact: sebaslander@gmail.com
 """
@@ -44,32 +42,39 @@ class Basecamp():
         except Exception as e:
             print('Error de conexion\n', e)
 
-    def list_projects(self):
+    def query_projects(self):
         """
-        Invoques from the API a list of all active projects and a detailed
-        report of every project, and returns the context of that.
+        Invoques from the API a list of all active projects into the platform
+        and returns the context in a JSON file.
 
-        Available API Calls:
+        API Calls implemented:
 
-            /projects.json returns  all active projects.
-            /projects/drafts.json returns all draft projects.
-            /projects/archived.json returns all archived projects.
-            /projects/1.json returns a detailed report of the specified project.
+            /projects.json
+
         """
-        # path = 'projects.json'
-        # return self.set_connection(path)
+
         r = self.set_connection('projects.json')
-        list_data = r.json()
-        li = [u['id'] for u in list_data]
-        detail_data = self.detailed_projects(li[0])
+        return r.json()
+
+        # li = [u['id'] for u in list_data]
+        # detail_data = self.detailed_projects(li[0])
         # detail_data = [self.detailed_projects(x) for x in li]
-        return list_data, detail_data
+        # return list_data, detail_data
 
     def detailed_projects(self, proj_id):
+        # /projects/1.json returns a detailed report of the specified project
+        # where 1 equals to the id of the project.
+
         return self.set_connection('projects/{0}.json'.format('proj_id'))
 
     """
-    Listado de funcionalidades del API a implementar:
+    #TODO
+    From projects listing still is pending to implement this API calls:
+
+    /projects/drafts.json returns all draft projects.
+    /projects/archived.json returns all archived projects.
+
+    API calls functionalities still pending to include:
 
     Project Templates
     Stars
