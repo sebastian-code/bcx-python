@@ -85,30 +85,3 @@ class Basecamp():
         """
 
         return self.set_connection('projects/{0}.json'.format(proj_id)).json()
-
-    """
-    #TODO
-    From projects listing still is pending to implement this API calls:
-
-    /projects/drafts.json returns all draft projects.
-    /projects/archived.json returns all archived projects.
-
-    API calls functionalities still pending to include:
-
-    Project Templates
-    Stars
-    People
-    Accesses
-    Companies/Groups
-    Events
-    Topics
-    Messages
-    Comments
-    Todo lists
-    Todos
-    Documents
-    Attachments
-    Uploads
-    Calendars
-    Calendar events
-    """
