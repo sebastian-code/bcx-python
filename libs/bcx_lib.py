@@ -16,6 +16,7 @@ Created on 2015-04-12
 """
 
 import requests
+import sys
 
 __author__ = 'Sebastian Reyes Espinosa'
 __email__ = 'sebaslander@gmail.com'
@@ -25,8 +26,17 @@ __creation_date__ = '2015-04-12'
 class Basecamp():
 
     def __init__(self, user_id, username, password, company):
-        # Definir caracteristicas del objeto de conexion
-        self.base_url = 'https://basecamp.com/%s/api/v1/' % user_id
+        """
+        Construct of the main class, containing the initial components of the
+        API, needed across every communication and obligatory to implement.
+
+        @requires: user_id - main id code to reference the account admin
+        @requires: username - user's registration name to acces Basecamp
+        @requires: password - user's password
+        @requires: company - app name
+        """
+
+        self.base_url = 'https://basecamp.com/{0}/api/v1/'.format(user_id)
         self.user_id = user_id
         self.username = username
         self.password = password
@@ -42,6 +52,7 @@ class Basecamp():
 
         except Exception as e:
             print('Error de conexion\n', e)
+            sys.exit(1)
 
     def query_projects(self, arg):
         """
@@ -54,23 +65,11 @@ class Basecamp():
             /projects/drafts.json returns all draft projects.
             /projects/archived.json returns all archived projects.
 
-        @requires: arg - INT type value. Values: 1, 2, 3
+        @requires: arg - INT type value. Values: 0, 1, 2
         @returns: JSON object
         """
-        if arg == 1:
-            # returns all active projects
-            return self.set_connection('projects.json').json()
-
-        elif arg == 2:
-            # returns all draft projects.
-            return self.set_connection('projects/drafts.json').json()
-
-        elif arg == 3:
-            return self.set_connection('projects/archived.json').json()
-
-        else:
-            # returns error
-            raise ValueError("The wrong option has been recieved!")
+        args = ['projects', 'projects/drafts', 'projects/archived']
+        return self.set_connection('{0}.json'.format(args[arg])).json()
 
     def detailed_project(self, proj_id):
         """
@@ -98,20 +97,11 @@ class Basecamp():
             /people/trashed.json will return all people who have been deleted
                 from the account. Only admins are able to access trashed people.
 
-        @requires: arg - INT type value. Values: 1, 2
+        @requires: arg - INT type value. Values: 0, 1
         @returns: JSON object
         """
-        if arg == 1:
-            # returns all people on the account
-            return self.set_connection('people.json').json()
-
-        elif arg == 2:
-            # returns all trashed people from the account
-            return self.set_connection('people/trashed.json').json()
-
-        else:
-            # returns error
-            raise ValueError("The wrong option has been recieved!")
+        args = ['people', 'people/trashed']
+        return self.set_connection('{0}.json'.format(args[arg])).json()
 
     def detailed_people(self, people_id, arg):
         """
@@ -131,18 +121,9 @@ class Basecamp():
                 view the person 404 Not Found will be returned.
 
         @requires: people_id -INT type value equal to the 'id' identifier
-        @requires: arg - INT type value. Values: 1, 2
+        @requires: arg - INT type value. Values: 0, 1
         @returns: JSON object
         """
 
-        if arg == 1:
-            # returns the specified person
-            return self.set_connection('people/{0}.json'.format(people_id)).json()
-
-        elif arg == 2:
-            # returns a list of all projects the person has access to
-            return self.set_connection('people/{0}/projects.json'.format(people_id)).json()
-
-        else:
-            # returns error
-            raise ValueError("The wrong option has been recieved!")
+        args = ['', '/projects']
+        return self.set_connection('people/{0}{1}.json'.format(people_id, args[arg])).json()
