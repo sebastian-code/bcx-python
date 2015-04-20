@@ -22,18 +22,18 @@ Until now I only implemented the following calls:
 * Implement a better exception handling for the requests.
 * Implement the following API calls:
 ```
-Project Templates
-Stars
-Accesses
-Companies/Groups
-Topics
-Messages
-Comments
-Todo lists
-Todos
-Documents
-Attachments
-Uploads
-Calendars
-Calendar events
+[Project Templates](https://github.com/basecamp/bcx-api/blob/master/sections/project_templates.md)
+[Stars](https://github.com/basecamp/bcx-api/blob/master/sections/stars.md)
+[Accesses](https://github.com/basecamp/bcx-api/blob/master/sections/accesses.md)
+[Companies/Groups](https://github.com/basecamp/bcx-api/blob/master/sections/groups.md)
+[Topics](https://github.com/basecamp/bcx-api/blob/master/sections/topics.md)
+[Messages](https://github.com/basecamp/bcx-api/blob/master/sections/messages.md)
+[Comments](https://github.com/basecamp/bcx-api/blob/master/sections/comments.md)
+[Todo lists](https://github.com/basecamp/bcx-api/blob/master/sections/todolists.md)
+[Todos](https://github.com/basecamp/bcx-api/blob/master/sections/todos.md)
+[Documents](https://github.com/basecamp/bcx-api/blob/master/sections/documents.md)
+[Attachments](https://github.com/basecamp/bcx-api/blob/master/sections/attachments.md)
+[Uploads](https://github.com/basecamp/bcx-api/blob/master/sections/uploads.md)
+[Calendars](https://github.com/basecamp/bcx-api/blob/master/sections/calendars.md)
+[Calendar events](https://github.com/basecamp/bcx-api/blob/master/sections/calendar_events.md)
 ```
