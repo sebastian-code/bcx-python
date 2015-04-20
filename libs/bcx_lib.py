@@ -65,7 +65,8 @@ class Basecamp():
             /projects/drafts.json returns all draft projects.
             /projects/archived.json returns all archived projects.
 
-        @requires: arg - INT type value. Values: 0, 1, 2
+        @requires: arg INT type value to signal the index of choice in args
+                tuple args = ['projects', 'projects/drafts', 'projects/archived']
         @returns: JSON object
         """
         args = ['projects', 'projects/drafts', 'projects/archived']
@@ -97,7 +98,8 @@ class Basecamp():
             /people/trashed.json will return all people who have been deleted
                 from the account. Only admins are able to access trashed people.
 
-        @requires: arg - INT type value. Values: 0, 1
+        @requires: arg INT type value to signal the index of choice in args
+                tuple args = ['people', 'people/trashed']
         @returns: JSON object
         """
         args = ['people', 'people/trashed']
@@ -120,10 +122,56 @@ class Basecamp():
                 list. If the requesting user does not have the access rights to
                 view the person 404 Not Found will be returned.
 
-        @requires: people_id -INT type value equal to the 'id' identifier
-        @requires: arg - INT type value. Values: 0, 1
+        @requires: people_id - INT type value equal to the 'id' identifier
+        @requires: arg INT type value to signal the index of choice in args
+                tuple args = ['', '/projects']
         @returns: JSON object
         """
 
         args = ['', '/projects']
         return self.set_connection('people/{0}{1}.json'.format(people_id, args[arg])).json()
+
+    def query_events(self, rv_id, arg, date, time, gmt):
+        """
+        Invoques from the API every action registered through the progress log.
+
+        TODO - Polling
+
+        Make sure that you're using the since parameter to limit the result set.
+        Use the created_at time of the first item on the list for subsequent
+        polls. If there's nothing new since that date, you'll get [] back.
+
+        TODO - Pagination
+
+        We will return 50 events per page. If the result set has 50 entries,
+        it's your responsibility to check the next page to see if there are any
+        more events -- you do this by adding &page=2 to the query, then &page=3
+        and so on.
+
+        API Calls implemented:
+
+            /projects/1/events.json?since=2012-03-24T11:00:00-06:00 returns all
+                events in the specified project since 11am CST on March 24, 2012
+            /people/1/events.json?since=2012-03-24T11:00:00-06:00 returns all
+                the events created by the specified person since 11am CST on
+                March 24, 2012.
+            /events.json?since=2012-03-24T11:00:00-06:00 returns all events in
+                all projects and calendars since 11am CST on March 24, 2012
+
+        @requires: rv_id - identification number of the people or project to
+                query about the events related to that people or project.
+        @requires: arg INT type value to signal the index of choice in args
+                tuple args = ['', 'projects/', 'people/']
+        @requires: date - starting date for the query, format: AAAA-MM-DD
+        @requires: time - starting time for the query, format: HH:MM:SS
+        @requires: gmt - Note that the + character must be url-escaped, while
+                the - character can be used as-is. So, use
+                ?since=2014-01-01T01:00:00%2B01:00 as opposed to
+                ?since=2014-01-01T01:00:00+01:00 for east-of-GMT time zones
+        @returns: JSON object
+        """
+        if arg == 0:
+            rv_id += '/'
+
+        args = ['', 'projects/', 'people/']
+        return self.set_connection('{0}{1}events.json?since={2}T{3}{4}'.format(args[arg], rv_id, date, time, gmt)).json()
