@@ -175,3 +175,31 @@ class Basecamp():
 
         args = ['', 'projects/', 'people/']
         return self.set_connection('{0}{1}events.json?since={2}T{3}{4}'.format(args[arg], rv_id, date, time, gmt)).json()
+
+    def query_todolist(self):
+        """
+        API Calls implemented:
+
+            /todolists.json shows active to-do lists for all projects.
+            /todolists/completed.json shows completed to-do lists for all projects.
+            /todolists/trashed.json shows trashed to-do lists for all projects.
+
+            /people/1/assigned_todos.json will return all the to-do lists with to-dos assigned to the specified person.
+            /people/1/assigned_todos.json?due_since=2014-07-10 will return all the to-do lists with to-dos assigned to the specified person due after the date specified.
+
+            /projects/1/todos/1.json will return the specified to-do.
+            /projects/1/todos/completed.json shows a list of all completed to-dos for this project.
+            /projects/1/todos/remaining.json shows a list of all remaining/active to-dos for this project.
+            /projects/1/todos.json shows a list of all to-dos for this project; completed and remaining.
+            /projects/1/todos.json?due_since=2014-07-10 will return all the to-dos due after the date specified.
+
+            /projects/1/todolists.json shows active to-do lists for this project sorted by position.
+            /projects/1/todolists/completed.json shows completed to-do lists for this project.
+            /projects/1/todolists/trashed.json shows trashed to-do lists for this project.
+            /projects/1/todolists/1/todos.json shows a list of all to-dos for this to-do list; completed and remaining.
+            /projects/1/todolists/1/todos/completed.json shows a list of all completed to-dos for this to-do list.
+            /projects/1/todolists/1/todos/remaining.json shows a list of all remaining to-dos for this to-do list.
+            /projects/1/todolists/1/todos/trashed.json shows a list of all trashed to-dos for this to-do list.
+            /projects/1/todolists/1.json will return the specified to-do list including the to-dos.
+            /projects/1/todolists/1.json?exclude_todos=true will return the specified to-do list excluding the to-dos. If your to-do lists have a 1000+ total to-dos we request you use the to-do list with the exclude_todos parameter and retrieve to-dos from the to-do endpoints.
+        """
