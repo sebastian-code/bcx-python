@@ -21,7 +21,6 @@ Until now I only implemented the following calls:
 * Create documentation - maybe
 * Implement a better exception handling for the requests.
 * Implement the following API calls:
-```
 [Project Templates](https://github.com/basecamp/bcx-api/blob/master/sections/project_templates.md)
 [Stars](https://github.com/basecamp/bcx-api/blob/master/sections/stars.md)
 [Accesses](https://github.com/basecamp/bcx-api/blob/master/sections/accesses.md)
@@ -36,4 +35,3 @@ Until now I only implemented the following calls:
 [Uploads](https://github.com/basecamp/bcx-api/blob/master/sections/uploads.md)
 [Calendars](https://github.com/basecamp/bcx-api/blob/master/sections/calendars.md)
 [Calendar events](https://github.com/basecamp/bcx-api/blob/master/sections/calendar_events.md)
-```
