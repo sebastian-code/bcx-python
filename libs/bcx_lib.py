@@ -131,7 +131,7 @@ class Basecamp():
         args = ['', '/projects']
         return self.set_connection('people/{0}{1}.json'.format(people_id, args[arg])).json()
 
-    def query_events(self, rv_id, arg, date, time, gmt):
+    def query_events(self, rv_id, arg, date='', time='', gmt=''):
         """
         Invoques from the API every action registered through the progress log.
 
@@ -174,7 +174,7 @@ class Basecamp():
             rv_id += '/'
 
         args = ['', 'projects/', 'people/']
-        return self.set_connection('{0}{1}events.json?since={2}T{3}{4}'.format(args[arg], rv_id, date, time, gmt)).json()
+        return self.set_connection('{0}{1}events.json{2}{3}{4}'.format(args[arg], rv_id, '?since='+date, 'T'+time, gmt)).json()
 
     def query_todolist(self):
         """
@@ -203,3 +203,7 @@ class Basecamp():
             /projects/1/todolists/1.json will return the specified to-do list including the to-dos.
             /projects/1/todolists/1.json?exclude_todos=true will return the specified to-do list excluding the to-dos. If your to-do lists have a 1000+ total to-dos we request you use the to-do list with the exclude_todos parameter and retrieve to-dos from the to-do endpoints.
         """
+
+        args = ['', 'todolists', 'todolists/completed', 'todolists/trashed',
+                'people/', 'projects/', ]
+        return self.set_connection(''.format()).json()
